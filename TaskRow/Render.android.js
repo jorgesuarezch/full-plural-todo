@@ -1,28 +1,48 @@
 import React from 'react';
 import {
+  Animated,
   Image,
   StyleSheet,
   Text,
   TouchableHighlight,
-  View,
 } from 'react-native';
 
 import doneImg from '../images/done.png';
 import { ALTO_2 } from '../colors';
 
-const localStyle = StyleSheet.create({
-  doneButton: {
-    borderRadius: 5,
-    padding: 5,
-  },
-});
-
 export default function (styles) {
+  const doneAnimation = new Animated.ValueXY();
+
+  const localStyle = StyleSheet.create({
+    doneButton: {
+      borderRadius: 5,
+      padding: 5,
+    },
+    row: {
+      transform: doneAnimation.getTranslateTransform(),
+    },
+  });
+
+  const animatedPress = () => {
+    Animated.spring(doneAnimation, {
+      tension: 2,
+      friction: 2,
+      toValue: {
+        x: -500,
+        y: 0,
+      },
+    }).start();
+
+    setTimeout(() => {
+      this.onDonePressed();
+    }, 300);
+  };
+
   return (
-    <View style={styles.container}>
+    <Animated.View style={[styles.container, localStyle.row]}>
       <Text style={styles.label}>android: {this.props.todo.task}</Text>
       <TouchableHighlight
-        onPress={this.onDonePressed}
+        onPress={animatedPress}
         style={localStyle.doneButton}
         underlayColor={ALTO_2}
       >
@@ -30,6 +50,6 @@ export default function (styles) {
           source={doneImg}
         />
       </TouchableHighlight>
-    </View>
+    </Animated.View>
   );
 }
