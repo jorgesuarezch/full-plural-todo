@@ -22,6 +22,15 @@
   "settings": {
     "flowtype": {
       "onlyFilesWithFlowAnnotation": false
+    },
+    "import/resolver": {
+      "node": {
+        "extensions": [
+          ".js",
+          ".android.js",
+          ".ios.js"
+        ]
+      }
     }
   },
   "rules": {

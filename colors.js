@@ -9,3 +9,4 @@ export const ALTO_1 = '#D7D7D7';
 export const CERULEAN_1 = '#05A5D1';
 export const DOVE_GRAY_1 = '#666';
 export const MINE_SHAFT_1 = '#333';
+export const OUTER_SPACE_1 = '#273539';
