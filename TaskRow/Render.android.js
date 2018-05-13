@@ -1,10 +1,21 @@
 import React from 'react';
 import {
+  Image,
+  StyleSheet,
   Text,
   TouchableHighlight,
   View,
 } from 'react-native';
 
+import doneImg from '../images/done.png';
+import { ALTO_2 } from '../colors';
+
+const localStyle = StyleSheet.create({
+  doneButton: {
+    borderRadius: 5,
+    padding: 5,
+  },
+});
 
 export default function (styles) {
   return (
@@ -12,9 +23,12 @@ export default function (styles) {
       <Text style={styles.label}>android: {this.props.todo.task}</Text>
       <TouchableHighlight
         onPress={this.onDonePressed}
-        style={styles.buttonDone}
+        style={localStyle.doneButton}
+        underlayColor={ALTO_2}
       >
-        <Text>Done</Text>
+        <Image
+          source={doneImg}
+        />
       </TouchableHighlight>
     </View>
   );
