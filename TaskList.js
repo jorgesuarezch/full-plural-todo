@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {
   ListView,
   StyleSheet,
+  Switch,
   Text,
   TouchableHighlight,
   View,
@@ -38,6 +39,15 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '600',
   },
+  toggleRow: {
+    flexDirection: 'row',
+    padding: 10,
+  },
+  toggleText: {
+    fontSize: 20,
+    paddingLeft: 10,
+    paddingTop: 3,
+  },
 });
 
 class TaskList extends React.Component {
@@ -72,10 +82,25 @@ class TaskList extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <View
+          style={styles.toggleRow}
+        >
+          <Switch
+            onValueChange={this.props.onToggle}
+            style={styles.switch}
+            value={this.props.filter !== 'pending'}
+          />
+          <Text
+            style={styles.toggleText}
+          >
+            Showing {this.props.todos.length} {this.props.filter} todo(s)
+          </Text>
+        </View>
         <ListView
           key={this.props.todos}
           dataSource={this.state.dataSource}
           renderRow={this.renderRow}
+          enableEmptySections
         />
         <TouchableHighlight
           onPress={this.props.onAddStarted}
@@ -89,8 +114,10 @@ class TaskList extends React.Component {
 }
 
 TaskList.propTypes = {
+  filter: PropTypes.string.isRequired,
   onAddStarted: PropTypes.func.isRequired,
   onDone: PropTypes.func.isRequired,
+  onToggle: PropTypes.func.isRequired,
   todos: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 

@@ -40,7 +40,7 @@ export default function (styles) {
 
   return (
     <Animated.View style={[styles.container, localStyle.row]}>
-      <Text style={styles.label}>android: {this.props.todo.task}</Text>
+      <Text style={styles.label}>{this.props.todo.task}</Text>
       <TouchableHighlight
         onPress={animatedPress}
         style={localStyle.doneButton}

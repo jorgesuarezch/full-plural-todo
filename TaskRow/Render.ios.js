@@ -42,7 +42,7 @@ export default function (baseStyles) {
         right={buttons}
       >
         <View style={[baseStyles.container, localStyles.row]}>
-          <Text style={baseStyles.label}>ios: {this.props.todo.task}</Text>
+          <Text style={baseStyles.label}>{this.props.todo.task}</Text>
         </View>
       </Swipeout>
     </View>

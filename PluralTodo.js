@@ -45,6 +45,12 @@ export default class PluralTodo extends React.Component {
     });
   }
 
+  onToggle = () => {
+    store.dispatch({
+      type: 'TOGGLE_STATE',
+    });
+  }
+
   configureScene() { // eslint-disable-line
     return Navigator.SceneConfigs.FloatFromBottom;
   }
@@ -62,8 +68,10 @@ export default class PluralTodo extends React.Component {
       default:
         return (
           <TaskList
+            filter={this.state.filter}
             onAddStarted={this.onAddStarted}
             onDone={this.onDone}
+            onToggle={this.onToggle}
             todos={this.state.todos}
           />
         );
