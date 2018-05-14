@@ -3,25 +3,20 @@ import React from 'react';
 import { Navigator } from 'react-native-deprecated-custom-components';
 import TaskList from './TaskList';
 import TaskForm from './TaskForm';
+import store from './todoStore';
 
 export default class PluralTodo extends React.Component {
   constructor(props, context) {
     super(props, context);
-    this.state = {
-      todos: [
-        {
-          task: 'Learn React Native 2',
-        },
-        {
-          task: 'Learn Redux',
-        },
-      ],
-    };
+    this.state = store.getState();
+
+    store.subscribe((() => {
+      this.setState(store.getState());
+    }));
 
     this.onCancel = this.onCancel.bind(this);
     this.onAdd = this.onAdd.bind(this);
     this.onAddStarted = this.onAddStarted.bind(this);
-    this.onDone = this.onDone.bind(this);
     this.renderScene = this.renderScene.bind(this);
   }
 
@@ -36,17 +31,17 @@ export default class PluralTodo extends React.Component {
   }
 
   onAdd(task) {
-    this.state.todos.push({ task });
-    this.setState({
-      todos: this.state.todos,
+    store.dispatch({
+      type: 'ADD_TODO',
+      task,
     });
     this.nav.pop();
   }
 
-  onDone(todo) {
-    const filteredTodos = this.state.todos.filter(filterTodo => filterTodo !== todo);
-    this.setState({
-      todos: filteredTodos,
+  onDone = (todo) => {
+    store.dispatch({
+      type: 'DONE_TODO',
+      todo,
     });
   }
 
